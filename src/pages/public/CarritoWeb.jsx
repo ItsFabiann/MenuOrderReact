@@ -24,8 +24,8 @@ export default function CarritoWeb() {
             <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
           </svg>
-          <h2>Tu carrito esta vacio</h2>
-          <p>Agrega platos desde el menu para continuar</p>
+          <h2>Tu carrito esta vacío</h2>
+          <p>Agrega platos desde el menú para continuar</p>
           <Link to="/menu" className="btn-primario">Ver el menu</Link>
         </div>
       </div>

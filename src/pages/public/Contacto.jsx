@@ -11,7 +11,7 @@ export default function Contacto() {
       </div>
       <div className="contacto-contenido">
         <div className="contacto-info">
-          <h2>Informacion de contacto</h2>
+          <h2>Información de contacto</h2>
           <div className="contacto-item">
             <div className="contacto-etiqueta">Correo electronico</div>
             <div className="contacto-valor">contacto@menuorder.com</div>
@@ -21,11 +21,11 @@ export default function Contacto() {
             <div className="contacto-valor">+51 987 654 321</div>
           </div>
           <div className="contacto-item">
-            <div className="contacto-etiqueta">Direccion</div>
+            <div className="contacto-etiqueta">Dirección</div>
             <div className="contacto-valor">Av. Larco 123, Miraflores, Lima, Peru</div>
           </div>
           <div className="contacto-item">
-            <div className="contacto-etiqueta">Horario de atencion</div>
+            <div className="contacto-etiqueta">Horario de atención</div>
             <div className="contacto-valor">Lunes a Domingo — 12:00 pm a 10:00 pm</div>
           </div>
         </div>

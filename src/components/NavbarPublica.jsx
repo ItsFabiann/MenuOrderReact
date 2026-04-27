@@ -110,7 +110,7 @@ export default function NavbarPublica() {
                 Mi perfil — {cliente.nombre.split(' ')[0]}
               </Link>
               <button className="navbar-mobile-salir" onClick={handleSalir}>
-                Cerrar sesion
+                Cerrar sesión
               </button>
             </>
           ) : (

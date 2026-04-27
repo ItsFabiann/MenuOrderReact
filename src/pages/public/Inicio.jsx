@@ -10,15 +10,15 @@ export default function Inicio() {
         <div className="hero-contenido">
           <div className="hero-etiqueta">Sistema de pedidos digitales</div>
           <h1 className="hero-titulo">
-            El menu de tu restaurante<br />en manos de tus clientes
+            El menú de tu restaurante<br />en manos de tus clientes
           </h1>
           <p className="hero-descripcion">
             MenuOrder digitaliza la toma de pedidos. El cliente elige desde su telefono,
             el restaurante recibe la orden en tiempo real. Sin errores, sin esperas innecesarias.
           </p>
           <div className="hero-acciones">
-            <Link to="/menu" className="btn-primario">Ver el menu</Link>
-            <Link to="/sobre-nosotros" className="btn-secundario">Conocer mas</Link>
+            <Link to="/menu" className="btn-primario">Ver el menú</Link>
+            <Link to="/sobre-nosotros" className="btn-secundario">Conocer más</Link>
           </div>
         </div>
         <div className="hero-imagen">
@@ -42,12 +42,12 @@ export default function Inicio() {
       <section className="como-funciona">
         <div className="seccion-inner">
           <h2 className="seccion-titulo">Como funciona</h2>
-          <p className="seccion-subtitulo">Tres pasos para digitalizar tu atencion</p>
+          <p className="seccion-subtitulo">Tres pasos para digitalizar tu atención</p>
           <div className="pasos">
             {[
               { num: '01', titulo: 'El cliente ingresa', desc: 'Se registra con su nombre y correo. La app guarda su cuenta de forma segura.' },
-              { num: '02', titulo: 'Elige su pedido', desc: 'Navega el menu por categorias, ve el detalle de cada plato y agrega lo que desea.' },
-              { num: '03', titulo: 'Paga y recibe su codigo', desc: 'Confirma el pago desde la app y recibe un codigo unico para recoger su pedido.' },
+              { num: '02', titulo: 'Elige su pedido', desc: 'Navega el menú por categorias, ve el detalle de cada plato y agrega lo que desea.' },
+              { num: '03', titulo: 'Paga y recibe su codigo', desc: 'Confirma el pago desde la app y recibe un código único para recoger su pedido.' },
             ].map(({ num, titulo, desc }) => (
               <div key={num} className="paso">
                 <div className="paso-numero">{num}</div>
@@ -62,7 +62,7 @@ export default function Inicio() {
       {/* Características */}
       <section className="caracteristicas">
         <div className="seccion-inner">
-          <h2 className="seccion-titulo">Por que MenuOrder</h2>
+          <h2 className="seccion-titulo">Por qué MenuOrder</h2>
           <p className="seccion-subtitulo">Beneficios reales para el restaurante y el cliente</p>
           <div className="caracteristicas-grid">
             {[
@@ -88,9 +88,9 @@ export default function Inicio() {
       {/* CTA */}
       <section className="cta">
         <div className="cta-inner">
-          <h2>Descubre nuestro menu</h2>
+          <h2>Descubre nuestro menú</h2>
           <p>Explora los platos disponibles y conoce los precios antes de visitar el restaurante.</p>
-          <Link to="/menu" className="btn-primario">Ver menu completo</Link>
+          <Link to="/menu" className="btn-primario">Ver menú completo</Link>
         </div>
       </section>
 

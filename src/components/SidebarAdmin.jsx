@@ -42,7 +42,7 @@ export default function SidebarAdmin() {
           ))}
         </nav>
         <button className="sidebar-salir" onClick={handleSalir}>
-          Cerrar sesion
+          Cerrar sesión
         </button>
       </aside>
 
@@ -73,7 +73,7 @@ export default function SidebarAdmin() {
               </NavLink>
             ))}
             <button className="sidebar-mobile-salir" onClick={handleSalir}>
-              Cerrar sesion
+              Cerrar sesión
             </button>
           </div>
         )}

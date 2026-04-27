@@ -9,14 +9,14 @@ export default function Footer() {
         <div className="footer-marca">
           <div className="footer-logo">MenuOrder</div>
           <p>
-            Restaurante peruano en el corazon de Miraflores.<br />
+            Restaurante peruano en el corazón de Miraflores.<br />
             Cocina tradicional con ingredientes frescos<br />
-            seleccionados cada dia.
+            seleccionados cada día.
           </p>
         </div>
 
         <div className="footer-col">
-          <div className="footer-titulo">Navegacion</div>
+          <div className="footer-titulo">Navegación</div>
           <ul>
             <li><Link to="/">Inicio</Link></li>
             <li><Link to="/menu">Menu</Link></li>

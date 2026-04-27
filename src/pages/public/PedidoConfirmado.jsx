@@ -34,7 +34,7 @@ export default function PedidoConfirmado() {
             <span>S/ {pedido.total.toFixed(2)}</span>
           </div>
           <div className="confirmado-fila">
-            <span>Metodo de pago</span>
+            <span>Método de pago</span>
             <span>{pedido.metodoPago}</span>
           </div>
           <div className="confirmado-fila">
@@ -45,7 +45,7 @@ export default function PedidoConfirmado() {
 
         <div className="confirmado-acciones">
           <Link to="/perfil" className="btn-secundario">Ver mis pedidos</Link>
-          <Link to="/menu"   className="btn-primario">Volver al menu</Link>
+          <Link to="/menu"   className="btn-primario">Volver al menú</Link>
         </div>
       </div>
     </div>

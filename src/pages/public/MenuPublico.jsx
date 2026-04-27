@@ -51,7 +51,7 @@ export default function MenuPublico() {
     <div className="menu-publico">
       <div className="menu-header">
         <div className="menu-header-inner">
-          <h1>Nuestro Menu</h1>
+          <h1>Nuestro Menú</h1>
           <p>Explora nuestra seleccion de platos preparados con ingredientes frescos</p>
         </div>
       </div>

@@ -218,7 +218,7 @@ export default function Platos() {
                       />
                     </div>
                     <div className="campo">
-                      <label>Categoria *</label>
+                      <label>Categoría *</label>
                       <select name="categoriaId" value={form.categoriaId} onChange={handleChange}>
                         {CATEGORIAS.map(c => (
                           <option key={c.id} value={c.id}>{c.nombre}</option>

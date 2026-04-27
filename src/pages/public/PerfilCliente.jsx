@@ -88,7 +88,7 @@ const formatFecha = (str) => {
                     <span className="pedido-total">S/ {pedido.total.toFixed(2)}</span>
                   </div>
                   <div className="pedido-dato">
-                    <span className="pedido-dato-label">Metodo</span>
+                    <span className="pedido-dato-label">Método</span>
                     <span>{pedido.metodoPago}</span>
                   </div>
                   <div className="pedido-dato">

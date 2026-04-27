@@ -56,7 +56,7 @@ export default function LoginCliente() {
             className={modo === 'login' ? 'tab-activo' : ''}
             onClick={() => { setModo('login'); setError('') }}
           >
-            Iniciar sesion
+            Iniciar sesión
           </button>
           <button
             className={modo === 'registro' ? 'tab-activo' : ''}

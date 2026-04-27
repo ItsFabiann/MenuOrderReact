@@ -129,7 +129,7 @@ export default function Pedidos() {
             <table className="tabla">
               <thead>
                 <tr>
-                  <th>Codigo</th>
+                  <th>Código</th>
                   <th>Cliente</th>
                   <th>Mesa</th>
                   <th>Total</th>
