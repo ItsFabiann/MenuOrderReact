@@ -3,11 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>MenuOrder - Admin</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Script de depuración para móvil -->
+    <script>
+      (function() {
+        // Mostrar que la página cargó
+        var loadDiv = document.createElement('div');
+        loadDiv.style.cssText = 'position:fixed; bottom:0; left:0; right:0; background:#4CAF50; color:white; padding:8px; font-size:12px; z-index:99999; text-align:center; font-family:monospace;';
+        loadDiv.innerHTML = '✅ Página cargada: ' + new Date().toLocaleTimeString() + ' | Esperando React...';
+        document.body.appendChild(loadDiv);
+        
+        // Capturar errores globales
+        window.onerror = function(msg, url, line, col, error) {
+          var errorDiv = document.createElement('div');
+          errorDiv.style.cssText = 'position:fixed; top:0; left:0; right:0; background:#f44336; color:white; padding:15px; font-size:14px; z-index:99999; word-wrap:break-word; font-family:monospace;';
+          errorDiv.innerHTML = '❌ ERROR: ' + (error ? error.message : msg) + '<br><small>Revisa la consola del navegador</small>';
+          document.body.appendChild(errorDiv);
+          console.error('Error capturado:', msg, error);
+          return false;
+        };
+        
+        // Detectar cuando React se monta
+        var observer = new MutationObserver(function(mutations) {
+          var root = document.getElementById('root');
+          if (root && root.children.length > 0) {
+            loadDiv.innerHTML = '✅ React montado correctamente | ' + new Date().toLocaleTimeString();
+            loadDiv.style.background = '#2196F3';
+            setTimeout(function() {
+              loadDiv.style.opacity = '0.5';
+            }, 3000);
+            observer.disconnect();
+          }
+        });
+        
+        observer.observe(document.body, { childList: true, subtree: true });
+        
+        // Mostrar hash de la URL
+        var hashDiv = document.createElement('div');
+        hashDiv.style.cssText = 'position:fixed; top:0; right:0; background:#333; color:#0f0; padding:5px 10px; font-size:10px; z-index:99999; font-family:monospace;';
+        hashDiv.innerHTML = 'Hash: ' + (window.location.hash || 'sin #');
+        document.body.appendChild(hashDiv);
+        
+        setInterval(function() {
+          hashDiv.innerHTML = 'Hash: ' + (window.location.hash || 'sin #');
+        }, 500);
+      })();
+    </script>
   </body>
 </html>
