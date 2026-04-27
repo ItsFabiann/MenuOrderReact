@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'  // ← Cambia BrowserRouter por HashRouter
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import { AdminProvider }    from './context/AdminContext'
 import { ClienteProvider }  from './context/ClienteContext'
 import { CarritoProvider }  from './context/CarritoContext'
@@ -38,7 +38,7 @@ export default function App() {
     <AdminProvider>
       <ClienteProvider>
         <CarritoProvider>
-          <HashRouter>  {/* ← Cambia BrowserRouter por HashRouter */}
+          <HashRouter>
             <ScrollAlTope />
             <Routes>
 

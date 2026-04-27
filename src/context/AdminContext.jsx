@@ -4,12 +4,8 @@ const AdminContext = createContext(null)
 
 export function AdminProvider({ children }) {
   const [admin, setAdmin] = useState(() => {
-    try {
-      const guardado = localStorage.getItem('admin')
-      return guardado ? JSON.parse(guardado) : null
-    } catch {
-      return null
-    }
+    const guardado = localStorage.getItem('admin')
+    return guardado ? JSON.parse(guardado) : null
   })
 
   const iniciarSesion = (datos) => {
