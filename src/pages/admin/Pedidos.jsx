@@ -17,6 +17,7 @@ export default function Pedidos() {
   const cargar = async () => {
     try {
       const { data } = await api.get('/pedidos')
+      // Solo actualizar estado, sin notificaciones
       esMontura.current         = false
       pedidosAnteriores.current = data
       setPedidos(data)
@@ -27,6 +28,7 @@ export default function Pedidos() {
     }
   }
 
+  // Polling cada 15 segundos para nuevos pedidos
   useEffect(() => {
     cargar()
     const intervalo = setInterval(cargar, 15000)
@@ -54,24 +56,29 @@ export default function Pedidos() {
     return `badge ${mapa[estado] || 'badge-pendiente'}`
   }
 
-  // ✅ Restar 5 horas (UTC-5 = Perú)
-const formatFecha = (str) => {
+  const formatFecha = (str) => {
   try {
-    const fechaUTC = new Date(str)
-    // Restar 5 horas
-    const fechaPeru = new Date(fechaUTC.getTime() - (5 * 60 * 60 * 1000))
-    return fechaPeru.toLocaleDateString('es-PE', {
+    if (!str) return ''
+
+    // Si no tiene zona horaria, asumir UTC
+    const iso = str.includes('Z') || str.includes('+')
+      ? str
+      : str + 'Z'
+
+    return new Date(iso).toLocaleString('es-PE', {
+      timeZone: 'America/Lima',
       day: '2-digit',
       month: 'short',
       year: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     })
   } catch {
     return str
   }
 }
 
+  // Filtrar por estado y código
   const pedidosFiltrados = pedidos
     .filter(p => filtroEstado === 'Todos' || p.estado === filtroEstado)
     .filter(p =>
@@ -93,6 +100,7 @@ const formatFecha = (str) => {
         <button className="btn-secundario" onClick={cargar}>Actualizar</button>
       </div>
 
+      {/* Barra de búsqueda y filtros */}
       <div className="pedidos-controles">
         <input
           type="text"
@@ -134,8 +142,8 @@ const formatFecha = (str) => {
               </thead>
               <tbody>
                 {pedidosFiltrados.map(pedido => (
-                  <React.Fragment key={pedido.id}>
-                    <tr>
+                  <>
+                    <tr key={pedido.id}>
                       <td data-label="Codigo"><strong>{pedido.codigoPedido}</strong></td>
                       <td data-label="Cliente">{pedido.emailCliente}</td>
                       <td data-label="Mesa">{pedido.mesa}</td>
@@ -169,11 +177,12 @@ const formatFecha = (str) => {
                         >
                           {expandido === pedido.id ? 'Cerrar' : 'Ver items'}
                         </button>
-                       </td>
+                      </td>
                     </tr>
 
+                    {/* Fila expandida con los items */}
                     {expandido === pedido.id && (
-                      <tr className="fila-expandida">
+                      <tr key={`${pedido.id}-items`} className="fila-expandida">
                         <td colSpan={9}>
                           <div className="items-pedido">
                             <div className="items-pedido-titulo">
@@ -214,7 +223,7 @@ const formatFecha = (str) => {
                         </td>
                       </tr>
                     )}
-                  </React.Fragment>
+                  </>
                 ))}
               </tbody>
             </table>
