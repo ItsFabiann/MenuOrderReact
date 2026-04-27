@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAdmin } from '../../context/AdminContext'
 import api from '../../api/axios'
@@ -9,15 +9,8 @@ export default function LoginAdmin() {
   const [password, setPassword] = useState('')
   const [error, setError]       = useState('')
   const [cargando, setCargando] = useState(false)
-  const { iniciarSesion, admin } = useAdmin()
+  const { iniciarSesion }       = useAdmin()
   const navigate                = useNavigate()
-
-  // Si ya está logueado, redirigir
-  useEffect(() => {
-    if (admin) {
-      navigate('/admin/pedidos', { replace: true })
-    }
-  }, [admin, navigate])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -26,10 +19,7 @@ export default function LoginAdmin() {
     try {
       const { data } = await api.post('/admins/login', { email, password })
       iniciarSesion({ nombre: data.nombre, email: data.email })
-      // Pequeño delay para asegurar que el contexto se actualizó
-      setTimeout(() => {
-        navigate('/admin/pedidos', { replace: true })
-      }, 50)
+      navigate('/admin/pedidos')
     } catch {
       setError('Credenciales incorrectas. Verifica tu correo y contraseña.')
     } finally {

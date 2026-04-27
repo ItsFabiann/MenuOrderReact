@@ -1,32 +1,20 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 const AdminContext = createContext(null)
 
 export function AdminProvider({ children }) {
-  const [admin, setAdmin] = useState(null)
-  const [cargando, setCargando] = useState(true)
-
-  // Cargar admin desde localStorage al iniciar
-  useEffect(() => {
+  const [admin, setAdmin] = useState(() => {
     try {
       const guardado = localStorage.getItem('admin')
-      if (guardado) {
-        setAdmin(JSON.parse(guardado))
-      }
-    } catch (error) {
-      console.error('Error cargando admin:', error)
-    } finally {
-      setCargando(false)
+      return guardado ? JSON.parse(guardado) : null
+    } catch {
+      return null
     }
-  }, [])
+  })
 
   const iniciarSesion = (datos) => {
-    try {
-      localStorage.setItem('admin', JSON.stringify(datos))
-      setAdmin(datos)
-    } catch (error) {
-      console.error('Error guardando admin:', error)
-    }
+    localStorage.setItem('admin', JSON.stringify(datos))
+    setAdmin(datos)
   }
 
   const cerrarSesion = () => {
@@ -35,7 +23,7 @@ export function AdminProvider({ children }) {
   }
 
   return (
-    <AdminContext.Provider value={{ admin, cargando, iniciarSesion, cerrarSesion }}>
+    <AdminContext.Provider value={{ admin, iniciarSesion, cerrarSesion }}>
       {children}
     </AdminContext.Provider>
   )

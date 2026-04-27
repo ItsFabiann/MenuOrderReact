@@ -2,12 +2,18 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { useAdmin } from '../context/AdminContext'
 import SidebarAdmin from './SidebarAdmin'
 import './LayoutAdmin.css'
+import { useState, useEffect } from 'react'
 
 export default function LayoutAdmin() {
-  const { admin, cargando } = useAdmin()
+  const { admin } = useAdmin()
+  const [verificando, setVerificando] = useState(true)
 
-  // Mostrar loading mientras verifica autenticación
-  if (cargando) {
+  useEffect(() => {
+    const timer = setTimeout(() => setVerificando(false), 100)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (verificando) {
     return (
       <div style={{ 
         display: 'flex', 
@@ -17,7 +23,7 @@ export default function LayoutAdmin() {
         fontSize: '18px',
         color: '#666'
       }}>
-        Cargando panel admin...
+        Cargando...
       </div>
     )
   }
