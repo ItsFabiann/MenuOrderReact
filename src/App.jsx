@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'  // ← CAMBIA BrowserRouter por HashRouter
 import { AdminProvider }    from './context/AdminContext'
 import { ClienteProvider }  from './context/ClienteContext'
 import { CarritoProvider }  from './context/CarritoContext'
@@ -38,8 +38,8 @@ export default function App() {
     <AdminProvider>
       <ClienteProvider>
         <CarritoProvider>
-          <BrowserRouter>
-          <ScrollAlTope />
+          <HashRouter>  {/* ← CAMBIA BrowserRouter por HashRouter aquí también */}
+            <ScrollAlTope />
             <Routes>
 
               {/* Publicas con navbar y footer */}
@@ -64,7 +64,7 @@ export default function App() {
               </Route>
 
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
         </CarritoProvider>
       </ClienteProvider>
     </AdminProvider>
