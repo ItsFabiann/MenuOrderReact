@@ -17,6 +17,7 @@ import CarritoWeb       from './pages/public/CarritoWeb'
 import Checkout         from './pages/public/Checkout'
 import PedidoConfirmado from './pages/public/PedidoConfirmado'
 import PerfilCliente    from './pages/public/PerfilCliente'
+import ProcesandoPago from './pages/public/ProcesandoPago'
 
 import LoginAdmin  from './pages/admin/LoginAdmin'
 import Pedidos     from './pages/admin/Pedidos'
@@ -49,6 +50,7 @@ export default function App() {
               <Route path="/contacto" element={<LayoutPublico><Contacto /></LayoutPublico>} />
               <Route path="/carrito" element={<LayoutPublico><CarritoWeb /></LayoutPublico>} />
               <Route path="/perfil"  element={<LayoutPublico><PerfilCliente /></LayoutPublico>} />
+              <Route path="/procesando-pago" element={<ProcesandoPago />} />
 
               {/* Sin footer para flujo de pago */}
               <Route path="/cliente/login"      element={<LayoutPublico><LoginCliente /></LayoutPublico>} />

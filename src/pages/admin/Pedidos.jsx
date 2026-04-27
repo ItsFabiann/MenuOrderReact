@@ -17,7 +17,6 @@ export default function Pedidos() {
   const cargar = async () => {
     try {
       const { data } = await api.get('/pedidos')
-      // Solo actualizar estado, sin notificaciones
       esMontura.current         = false
       pedidosAnteriores.current = data
       setPedidos(data)
@@ -28,7 +27,6 @@ export default function Pedidos() {
     }
   }
 
-  // Polling cada 15 segundos para nuevos pedidos
   useEffect(() => {
     cargar()
     const intervalo = setInterval(cargar, 15000)
@@ -56,16 +54,24 @@ export default function Pedidos() {
     return `badge ${mapa[estado] || 'badge-pendiente'}`
   }
 
-  const formatFecha = (str) => {
-    try {
-      return new Date(str).toLocaleDateString('es-PE', {
-        day: '2-digit', month: 'short', year: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-      })
-    } catch { return str }
+  // ✅ Restar 5 horas (UTC-5 = Perú)
+const formatFecha = (str) => {
+  try {
+    const fechaUTC = new Date(str)
+    // Restar 5 horas
+    const fechaPeru = new Date(fechaUTC.getTime() - (5 * 60 * 60 * 1000))
+    return fechaPeru.toLocaleDateString('es-PE', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  } catch {
+    return str
   }
+}
 
-  // Filtrar por estado y código
   const pedidosFiltrados = pedidos
     .filter(p => filtroEstado === 'Todos' || p.estado === filtroEstado)
     .filter(p =>
@@ -87,7 +93,6 @@ export default function Pedidos() {
         <button className="btn-secundario" onClick={cargar}>Actualizar</button>
       </div>
 
-      {/* Barra de búsqueda y filtros */}
       <div className="pedidos-controles">
         <input
           type="text"
@@ -129,8 +134,8 @@ export default function Pedidos() {
               </thead>
               <tbody>
                 {pedidosFiltrados.map(pedido => (
-                  <>
-                    <tr key={pedido.id}>
+                  <React.Fragment key={pedido.id}>
+                    <tr>
                       <td data-label="Codigo"><strong>{pedido.codigoPedido}</strong></td>
                       <td data-label="Cliente">{pedido.emailCliente}</td>
                       <td data-label="Mesa">{pedido.mesa}</td>
@@ -164,12 +169,11 @@ export default function Pedidos() {
                         >
                           {expandido === pedido.id ? 'Cerrar' : 'Ver items'}
                         </button>
-                      </td>
+                       </td>
                     </tr>
 
-                    {/* Fila expandida con los items */}
                     {expandido === pedido.id && (
-                      <tr key={`${pedido.id}-items`} className="fila-expandida">
+                      <tr className="fila-expandida">
                         <td colSpan={9}>
                           <div className="items-pedido">
                             <div className="items-pedido-titulo">
@@ -210,7 +214,7 @@ export default function Pedidos() {
                         </td>
                       </tr>
                     )}
-                  </>
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>

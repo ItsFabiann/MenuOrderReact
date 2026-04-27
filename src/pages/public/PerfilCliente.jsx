@@ -30,11 +30,23 @@ export default function PerfilCliente() {
     return `badge ${mapa[estado] || 'badge-pendiente'}`
   }
 
-  const formatFecha = (str) =>
-    new Date(str).toLocaleDateString('es-PE', {
-      day: '2-digit', month: 'short', year: 'numeric',
-      hour: '2-digit', minute: '2-digit'
+  // ✅ Restar 5 horas (UTC-5 = Perú)
+const formatFecha = (str) => {
+  try {
+    const fechaUTC = new Date(str)
+    // Restar 5 horas
+    const fechaPeru = new Date(fechaUTC.getTime() - (5 * 60 * 60 * 1000))
+    return fechaPeru.toLocaleDateString('es-PE', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
     })
+  } catch {
+    return str
+  }
+}
 
   return (
     <div className="perfil-cliente">

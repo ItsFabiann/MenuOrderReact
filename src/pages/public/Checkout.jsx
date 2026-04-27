@@ -2,17 +2,15 @@ import { useState } from 'react'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { useCarrito } from '../../context/CarritoContext'
 import { useCliente } from '../../context/ClienteContext'
-import api from '../../api/axios'
 import './Checkout.css'
 
 export default function Checkout() {
-  const { items, total, vaciar }  = useCarrito()
-  const { cliente }               = useCliente()
-  const navigate                  = useNavigate()
+  const { items, total }  = useCarrito()
+  const { cliente }       = useCliente()
+  const navigate          = useNavigate()
 
   const [mesa, setMesa]           = useState('')
   const [metodo, setMetodo]       = useState('Tarjeta')
-  const [procesando, setProcesando] = useState(false)
   const [error, setError]         = useState('')
 
   // Tarjeta
@@ -23,51 +21,73 @@ export default function Checkout() {
   const [cvv, setCvv]                     = useState('')
 
   // Yape
-  const [numYape, setNumYape]     = useState('')
-  const [codYape, setCodYape]     = useState('')
+  const [numYape, setNumYape] = useState('')
+  const [codYape, setCodYape] = useState('')
 
-  if (!cliente)       return <Navigate to="/cliente/login" replace />
+  if (!cliente)           return <Navigate to="/cliente/login" replace />
   if (items.length === 0) return <Navigate to="/menu" replace />
 
+  // Formatear número de tarjeta con espacios cada 4 dígitos
+  const handleNumeroTarjeta = (e) => {
+    const soloDigitos = e.target.value.replace(/\D/g, '').slice(0, 16)
+    const formateado  = soloDigitos.replace(/(.{4})/g, '$1 ').trim()
+    setNumeroTarjeta(formateado)
+  }
+
   const validar = () => {
-    if (!mesa || isNaN(mesa) || parseInt(mesa) < 1 || parseInt(mesa) > 20) {
-      setError('Ingresa un numero de mesa valido (1 al 20)')
+    const mesaNum = parseInt(mesa)
+    if (!mesa || isNaN(mesaNum) || mesaNum < 1 || mesaNum > 20) {
+      setError('Ingresa un número de mesa válido (1 al 20)')
       return false
     }
     if (metodo === 'Tarjeta') {
-      if (nombreTarjeta.trim().length < 3) { setError('Ingresa el nombre en la tarjeta'); return false }
-      if (numeroTarjeta.replace(/\s/g, '').length !== 16) { setError('El numero de tarjeta debe tener 16 digitos'); return false }
-      if (mesTarjeta.length !== 2 || parseInt(mesTarjeta) < 1 || parseInt(mesTarjeta) > 12) { setError('Mes invalido (01-12)'); return false }
-      if (anioTarjeta.length !== 2 || parseInt(anioTarjeta) < 26) { setError('Año invalido'); return false }
-      if (cvv.length !== 3) { setError('CVV debe tener 3 digitos'); return false }
+      if (nombreTarjeta.trim().length < 3) {
+        setError('Ingresa el nombre en la tarjeta'); return false
+      }
+      const digitos = numeroTarjeta.replace(/\s/g, '')
+      if (digitos.length !== 16) {
+        setError('El número de tarjeta debe tener 16 dígitos'); return false
+      }
+      const mesNum = parseInt(mesTarjeta)
+      if (mesTarjeta.length !== 2 || mesNum < 1 || mesNum > 12) {
+        setError('Mes inválido (01-12)'); return false
+      }
+      const anioNum = parseInt(anioTarjeta)
+      if (anioTarjeta.length !== 2 || anioNum < 26) {
+        setError('Año inválido'); return false
+      }
+      if (cvv.length !== 3) {
+        setError('CVV debe tener 3 dígitos'); return false
+      }
     }
     if (metodo === 'Yape') {
-      if (numYape.replace(/\s/g, '').length !== 9) { setError('Numero Yape debe tener 9 digitos'); return false }
-      if (codYape.length < 4) { setError('Codigo de aprobacion invalido'); return false }
+      const digitosYape = numYape.replace(/\D/g, '')
+      if (digitosYape.length !== 9) {
+        setError('Número Yape debe tener 9 dígitos'); return false
+      }
+      if (codYape.length < 4) {
+        setError('Código de aprobación inválido'); return false
+      }
     }
     return true
   }
 
-  const handlePagar = async () => {
+  const handlePagar = () => {
     setError('')
     if (!validar()) return
 
-    setProcesando(true)
-    try {
-      const payload = {
-        mesa:         `Mesa ${parseInt(mesa)}`,
-        emailCliente: cliente.email,
-        metodoPago:   metodo,
-        items:        items.map(i => ({ platoId: i.plato.id, cantidad: i.cantidad }))
+    // En lugar de llamar a la API aquí, navegamos a la pantalla de procesamiento
+    // y le pasamos los datos necesarios
+    navigate('/procesando-pago', {
+      state: {
+        dataPago: {
+          mesa:   `Mesa ${parseInt(mesa)}`,
+          metodo,
+        },
+        items,
+        total
       }
-      const { data } = await api.post('/pedidos', payload)
-      vaciar()
-      navigate('/pedido-confirmado', { state: { pedido: data } })
-    } catch {
-      setError('No se pudo procesar el pedido. Intenta de nuevo.')
-    } finally {
-      setProcesando(false)
-    }
+    })
   }
 
   const limitarDigitos = (setter, max) => (e) => {
@@ -81,15 +101,13 @@ export default function Checkout() {
         <h1 className="checkout-titulo">Confirmar pedido</h1>
 
         <div className="checkout-layout">
-
-          {/* Formulario */}
           <div className="checkout-form">
 
             {/* Mesa */}
             <div className="tarjeta checkout-seccion">
-              <h3 className="checkout-seccion-titulo">Numero de mesa</h3>
+              <h3 className="checkout-seccion-titulo">Número de mesa</h3>
               <div className="campo">
-                <label>Mesa en la que estas sentado</label>
+                <label>Mesa en la que estás sentado</label>
                 <input
                   type="number"
                   min="1" max="20"
@@ -102,15 +120,15 @@ export default function Checkout() {
 
             {/* Método de pago */}
             <div className="tarjeta checkout-seccion">
-              <h3 className="checkout-seccion-titulo">Metodo de pago</h3>
+              <h3 className="checkout-seccion-titulo">Método de pago</h3>
 
               <div className="metodo-tabs">
                 {['Tarjeta', 'Yape'].map(m => (
                   <button
                     key={m}
+                    type="button"
                     className={`metodo-tab${metodo === m ? ' activo' : ''}`}
                     onClick={() => { setMetodo(m); setError('') }}
-                    type="button"
                   >
                     {m}
                   </button>
@@ -129,12 +147,13 @@ export default function Checkout() {
                     />
                   </div>
                   <div className="campo">
-                    <label>Numero de tarjeta (16 digitos)</label>
+                    <label>Número de tarjeta (16 dígitos)</label>
                     <input
                       value={numeroTarjeta}
-                      onChange={limitarDigitos(setNumeroTarjeta, 16)}
-                      placeholder="1234567890123456"
+                      onChange={handleNumeroTarjeta}
+                      placeholder="1234 5678 9012 3456"
                       inputMode="numeric"
+                      maxLength={19}
                     />
                   </div>
                   <div className="pago-fila">
@@ -145,6 +164,7 @@ export default function Checkout() {
                         onChange={limitarDigitos(setMesTarjeta, 2)}
                         placeholder="MM"
                         inputMode="numeric"
+                        maxLength={2}
                       />
                     </div>
                     <div className="campo">
@@ -154,6 +174,7 @@ export default function Checkout() {
                         onChange={limitarDigitos(setAnioTarjeta, 2)}
                         placeholder="AA"
                         inputMode="numeric"
+                        maxLength={2}
                       />
                     </div>
                     <div className="campo">
@@ -164,6 +185,7 @@ export default function Checkout() {
                         placeholder="123"
                         inputMode="numeric"
                         type="password"
+                        maxLength={3}
                       />
                     </div>
                   </div>
@@ -173,21 +195,23 @@ export default function Checkout() {
               {metodo === 'Yape' && (
                 <div className="pago-form">
                   <div className="campo">
-                    <label>Numero de Yape (9 digitos)</label>
+                    <label>Número de Yape (9 dígitos)</label>
                     <input
                       value={numYape}
                       onChange={limitarDigitos(setNumYape, 9)}
                       placeholder="9XXXXXXXX"
                       inputMode="numeric"
+                      maxLength={9}
                     />
                   </div>
                   <div className="campo">
-                    <label>Codigo de aprobacion</label>
+                    <label>Código de aprobación</label>
                     <input
                       value={codYape}
                       onChange={limitarDigitos(setCodYape, 6)}
                       placeholder="123456"
                       inputMode="numeric"
+                      maxLength={6}
                     />
                   </div>
                 </div>
@@ -216,13 +240,11 @@ export default function Checkout() {
               <button
                 className="btn-primario checkout-btn"
                 onClick={handlePagar}
-                disabled={procesando}
               >
-                {procesando ? 'Procesando...' : `Pagar S/ ${total.toFixed(2)}`}
+                Pagar S/ {total.toFixed(2)}
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
