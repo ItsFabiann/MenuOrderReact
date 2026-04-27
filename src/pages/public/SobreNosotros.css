@@ -1,0 +1,107 @@
+.sobre-nosotros { min-height: 100vh; background: var(--blanco); }
+
+.sobre-header {
+  background: var(--negro);
+  padding: 70px 24px;
+}
+.sobre-header-inner { max-width: 1200px; margin: 0 auto; }
+.sobre-header h1 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--blanco);
+  margin-bottom: 12px;
+}
+.sobre-header p { color: rgba(255,255,255,0.6); font-size: 1.05rem; }
+
+.sobre-contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 70px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+.sobre-seccion {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.sobre-texto h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--negro);
+  margin-bottom: 20px;
+}
+.sobre-texto p {
+  font-size: 0.95rem;
+  color: var(--gris-oscuro);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.sobre-datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.dato-card {
+  background: var(--gris-claro);
+  border-radius: var(--radio);
+  padding: 28px 20px;
+  text-align: center;
+}
+.dato-numero {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--naranja);
+  margin-bottom: 6px;
+}
+.dato-etiqueta {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gris-oscuro);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sobre-valores h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--negro);
+  margin-bottom: 28px;
+}
+.valores-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.valor-card {
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 24px;
+  transition: border-color var(--transicion);
+}
+.valor-card:hover { border-color: var(--naranja); }
+.valor-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--naranja);
+  margin-bottom: 10px;
+}
+.valor-card p {
+  font-size: 0.88rem;
+  color: var(--gris-oscuro);
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .sobre-seccion { grid-template-columns: 1fr; }
+  .valores-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .sobre-datos { grid-template-columns: 1fr 1fr; }
+  .valores-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,143 @@
+.menu-publico { min-height: 100vh; }
+
+.menu-header {
+  background: var(--negro);
+  padding: 60px 24px;
+}
+.menu-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.menu-header h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--blanco);
+  margin-bottom: 12px;
+}
+.menu-header p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+}
+
+.menu-contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.menu-filtros {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.filtro-btn {
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: var(--blanco);
+  color: var(--gris-oscuro);
+  border: 1.5px solid var(--borde);
+  transition: all var(--transicion);
+}
+.filtro-btn:hover { border-color: var(--naranja); color: var(--naranja); }
+.filtro-btn.activo {
+  background: var(--naranja);
+  color: var(--blanco);
+  border-color: var(--naranja);
+}
+
+.menu-cantidad {
+  font-size: 0.88rem;
+  color: var(--gris-medio);
+  margin-bottom: 20px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.plato-card {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  overflow: hidden;
+  box-shadow: var(--sombra-suave);
+  transition: box-shadow var(--transicion), transform var(--transicion);
+}
+.plato-card:hover {
+  box-shadow: var(--sombra-media);
+  transform: translateY(-3px);
+}
+
+.plato-imagen {
+  position: relative;
+  height: 180px;
+  background: var(--gris-claro);
+}
+.plato-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.plato-imagen-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+}
+.plato-categoria {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 12px;
+  background: var(--negro);
+  color: var(--blanco);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 20px;
+}
+
+.plato-info { padding: 20px; }
+.plato-nombre {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--negro);
+  margin-bottom: 8px;
+}
+.plato-descripcion {
+  font-size: 0.88rem;
+  color: var(--gris-oscuro);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.plato-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.plato-precio {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--naranja);
+}
+
+.plato-agregar {
+  padding: 8px 18px;
+  background: var(--naranja);
+  color: var(--blanco);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radio-btn);
+  transition: all var(--transicion);
+}
+.plato-agregar:hover { background: var(--naranja-oscuro); }
+.plato-agregar.agregado {
+  background: var(--verde);
+}
+
+@media (max-width: 600px) {
+  .menu-grid { grid-template-columns: 1fr; }
+  .menu-header h1 { font-size: 1.8rem; }
+}

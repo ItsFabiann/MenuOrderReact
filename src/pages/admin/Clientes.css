@@ -1,0 +1,16 @@
+.clientes-page { max-width: 900px; }
+
+.clientes-buscador {
+  margin-bottom: 20px;
+}
+.buscador-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 16px;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio-btn);
+  font-size: 0.92rem;
+  background: var(--blanco);
+  transition: border-color var(--transicion);
+}
+.buscador-input:focus { border-color: var(--naranja); }

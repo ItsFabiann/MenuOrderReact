@@ -1,0 +1,67 @@
+.platos-page { max-width: 1100px; }
+
+.tabla-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.tabla-img-placeholder {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  background: var(--gris-claro);
+  border: 1px solid var(--borde);
+}
+
+.plato-nombre-tabla {
+  font-weight: 600;
+  color: var(--negro);
+  margin-bottom: 3px;
+}
+.plato-desc-tabla {
+  font-size: 0.82rem;
+  color: var(--gris-medio);
+}
+
+.tabla-acciones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.82rem;
+}
+
+/* Modal con dos columnas */
+.modal-grande { max-width: 720px; }
+
+.modal-dos-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.modal-col-izq,
+.modal-col-der {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .modal-dos-col { grid-template-columns: 1fr; }
+}

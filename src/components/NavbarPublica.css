@@ -1,0 +1,193 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--blanco);
+  border-bottom: 1px solid var(--borde);
+  box-shadow: var(--sombra-suave);
+}
+
+.navbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--naranja);
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 28px;
+  flex: 1;
+}
+
+.navbar-links a {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--gris-oscuro);
+  transition: color var(--transicion);
+  position: relative;
+  padding-bottom: 4px;
+}
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--naranja);
+  transition: width var(--transicion);
+}
+.navbar-links a:hover,
+.navbar-links a.activo { color: var(--naranja); }
+.navbar-links a.activo::after,
+.navbar-links a:hover::after { width: 100%; }
+
+.navbar-acciones {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.navbar-carrito {
+  position: relative;
+  color: var(--gris-oscuro);
+  display: flex;
+  align-items: center;
+  transition: color var(--transicion);
+}
+.navbar-carrito:hover { color: var(--naranja); }
+.navbar-carrito-badge {
+  position: absolute;
+  top: -6px; right: -8px;
+  background: var(--naranja);
+  color: var(--blanco);
+  font-size: 0.65rem;
+  font-weight: 700;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-cliente {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.navbar-cliente-nombre {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--negro);
+}
+.navbar-salir {
+  font-size: 0.82rem;
+  color: var(--gris-medio);
+  background: none;
+  font-weight: 500;
+  transition: color var(--transicion);
+}
+.navbar-salir:hover { color: var(--rojo); }
+
+.navbar-btn { font-size: 0.875rem; padding: 8px 18px; }
+
+.navbar-admin-link {
+  font-size: 0.8rem;
+  color: var(--gris-medio);
+  font-weight: 500;
+  padding: 6px 12px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-btn);
+  transition: all var(--transicion);
+}
+.navbar-admin-link:hover {
+  border-color: var(--negro);
+  color: var(--negro);
+}
+
+/* Hamburguesa */
+.navbar-hamburguesa {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.navbar-hamburguesa span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--negro);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+.navbar-hamburguesa.abierto span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar-hamburguesa.abierto span:nth-child(2) {
+  opacity: 0;
+}
+.navbar-hamburguesa.abierto span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Menú mobile */
+.navbar-mobile {
+  display: flex;
+  flex-direction: column;
+  background: var(--blanco);
+  border-top: 1px solid var(--borde);
+  padding: 12px 0 20px;
+}
+.navbar-mobile-link {
+  padding: 13px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--gris-oscuro);
+  transition: background var(--transicion), color var(--transicion);
+}
+.navbar-mobile-link:hover,
+.navbar-mobile-link.activo {
+  background: var(--gris-claro);
+  color: var(--naranja);
+}
+.navbar-mobile-link.destacado {
+  color: var(--naranja);
+  font-weight: 700;
+}
+.navbar-mobile-separador {
+  height: 1px;
+  background: var(--borde);
+  margin: 8px 0;
+}
+.navbar-mobile-salir {
+  padding: 13px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--rojo);
+  background: none;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .navbar-links,
+  .navbar-acciones { display: none; }
+  .navbar-hamburguesa { display: flex; }
+  .navbar-inner { gap: 0; }
+}

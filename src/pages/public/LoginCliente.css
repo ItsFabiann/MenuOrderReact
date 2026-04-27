@@ -1,0 +1,78 @@
+.login-cliente {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gris-claro);
+  padding: 24px;
+}
+
+.login-cliente-card {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--sombra-media);
+}
+
+.login-cliente-logo {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--naranja);
+  margin-bottom: 20px;
+}
+
+.login-cliente-titulo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--negro);
+  margin-bottom: 6px;
+}
+
+.login-cliente-sub {
+  font-size: 0.9rem;
+  color: var(--gris-medio);
+  margin-bottom: 28px;
+}
+
+.login-cliente-tabs {
+  display: flex;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio-btn);
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.login-cliente-tabs button {
+  flex: 1;
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gris-oscuro);
+  background: var(--blanco);
+  transition: all var(--transicion);
+}
+
+.login-cliente-tabs button.tab-activo {
+  background: var(--naranja);
+  color: var(--blanco);
+  font-weight: 600;
+}
+
+.login-cliente-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-cliente-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+}
+.login-cliente-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
