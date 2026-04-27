@@ -17,14 +17,7 @@ export default function Pedidos() {
   const cargar = async () => {
     try {
       const { data } = await api.get('/pedidos')
-      // Detectar nuevos pedidos para notificación
-      if (!esMontura.current && pedidosAnteriores.current.length > 0) {
-        const idsAnteriores = new Set(pedidosAnteriores.current.map(p => p.id))
-        const nuevos        = data.filter(p => !idsAnteriores.has(p.id))
-        if (nuevos.length > 0) {
-          mostrarNotificacionNuevoPedido(nuevos[0])
-        }
-      }
+      // Solo actualizar estado, sin notificaciones
       esMontura.current         = false
       pedidosAnteriores.current = data
       setPedidos(data)
@@ -40,31 +33,6 @@ export default function Pedidos() {
     cargar()
     const intervalo = setInterval(cargar, 15000)
     return () => clearInterval(intervalo)
-  }, [])
-
-  // Notificación del navegador
-  const mostrarNotificacionNuevoPedido = (pedido) => {
-    if (Notification.permission === 'granted') {
-      new Notification('Nuevo pedido recibido', {
-        body: `Codigo: ${pedido.codigoPedido}  |  Mesa: ${pedido.mesa}  |  S/ ${pedido.total.toFixed(2)}`,
-        icon: '/favicon.ico'
-      })
-    } else if (Notification.permission !== 'denied') {
-      Notification.requestPermission().then(permiso => {
-        if (permiso === 'granted') {
-          new Notification('Nuevo pedido recibido', {
-            body: `Codigo: ${pedido.codigoPedido}`
-          })
-        }
-      })
-    }
-  }
-
-  // Pedir permiso de notificaciones al montar
-  useEffect(() => {
-    if (Notification.permission === 'default') {
-      Notification.requestPermission()
-    }
   }, [])
 
   const actualizarEstado = async (id, estado) => {
@@ -163,41 +131,41 @@ export default function Pedidos() {
                 {pedidosFiltrados.map(pedido => (
                   <>
                     <tr key={pedido.id}>
-  <td data-label="Codigo"><strong>{pedido.codigoPedido}</strong></td>
-  <td data-label="Cliente">{pedido.emailCliente}</td>
-  <td data-label="Mesa">{pedido.mesa}</td>
-  <td data-label="Total">S/ {pedido.total.toFixed(2)}</td>
-  <td data-label="Metodo">{pedido.metodoPago}</td>
-  <td data-label="Fecha">{formatFecha(pedido.fechaPedido)}</td>
-  <td data-label="Estado">
-    <span className={badgeEstado(pedido.estado)}>
-      {pedido.estado}
-    </span>
-  </td>
-  <td data-label="Cambiar estado">
-    <select
-      className="estado-select"
-      value={pedido.estado}
-      onChange={e => actualizarEstado(pedido.id, e.target.value)}
-    >
-      {ESTADOS.map(e => (
-        <option key={e} value={e}>{e}</option>
-      ))}
-    </select>
-  </td>
-  <td data-label="Detalle">
-    <button
-      className="btn-detalle"
-      onClick={() =>
-        setExpandido(prev =>
-          prev === pedido.id ? null : pedido.id
-        )
-      }
-    >
-      {expandido === pedido.id ? 'Cerrar' : 'Ver items'}
-    </button>
-  </td>
-</tr>
+                      <td data-label="Codigo"><strong>{pedido.codigoPedido}</strong></td>
+                      <td data-label="Cliente">{pedido.emailCliente}</td>
+                      <td data-label="Mesa">{pedido.mesa}</td>
+                      <td data-label="Total">S/ {pedido.total.toFixed(2)}</td>
+                      <td data-label="Metodo">{pedido.metodoPago}</td>
+                      <td data-label="Fecha">{formatFecha(pedido.fechaPedido)}</td>
+                      <td data-label="Estado">
+                        <span className={badgeEstado(pedido.estado)}>
+                          {pedido.estado}
+                        </span>
+                      </td>
+                      <td data-label="Cambiar estado">
+                        <select
+                          className="estado-select"
+                          value={pedido.estado}
+                          onChange={e => actualizarEstado(pedido.id, e.target.value)}
+                        >
+                          {ESTADOS.map(e => (
+                            <option key={e} value={e}>{e}</option>
+                          ))}
+                        </select>
+                      </td>
+                      <td data-label="Detalle">
+                        <button
+                          className="btn-detalle"
+                          onClick={() =>
+                            setExpandido(prev =>
+                              prev === pedido.id ? null : pedido.id
+                            )
+                          }
+                        >
+                          {expandido === pedido.id ? 'Cerrar' : 'Ver items'}
+                        </button>
+                      </td>
+                    </tr>
 
                     {/* Fila expandida con los items */}
                     {expandido === pedido.id && (
