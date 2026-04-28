@@ -142,7 +142,7 @@ export default function Checkout() {
                     <input
                       value={nombreTarjeta}
                       onChange={e => setNombreTarjeta(e.target.value.toUpperCase())}
-                      placeholder="JUAN PEREZ"
+                      placeholder="ALVARO MARTIN COELLO DIAZ"
                       maxLength={30}
                     />
                   </div>
